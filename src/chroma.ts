@@ -14,6 +14,7 @@ type StyleMethods = {
   color: StyleFunction
   padding: StyleFunction
   border: StyleFunction
+  style: StyleFunction
   log: ColoredProxy
   warn: ColoredProxy
   error: ColoredProxy
@@ -42,7 +43,7 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
         let isPadded
 
         for (let a of args) {
-          a = a.zq?.() ?? a // any chroma functions should be executed first
+          a = a?.zq?.() ?? a // any chroma functions should be executed first
           if (a?.[0]?.startsWith?.('%c')) {
             isPadded = a[1].match(/pad|dec/)
             if (wasPadded) {
@@ -73,20 +74,22 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
         __: any,
         add = (type: string) =>
           (value: string) =>
-            (styles += `${type}:${value};`) && __,
+            // (styles += `${type}${type ? ':' : ''}${value};`) && __,
+            (styles += (type ? `${type}:${value}` : value) + ';') && __,
       ) {
         if (prop == 'zq') return __
         if (prop == 'color') return add(prop)
         if (prop == 'bold') return add('font-weight')(prop)
         if (prop == 'italic') return add('font-style')(prop)
         if (prop == 'underline') return add('text-decoration')(prop)
-        if (prop == 'strikethrough') return add('text-decoration')('line-through')
+        if (prop == 'strike') return add('text-decoration')('line-through')
         if (prop == 'font') return add('font-family')
         if (prop == 'size') return add('font-size')
         if (prop == 'bg') return add('background')
         if (prop == 'radius') return add('border-radius')
         if (prop == 'padding') return add(prop)
-        if (prop == 'border') return add(prop)        
+        if (prop == 'border') return add(prop)
+        if (prop == 'style') return add('')   
         if (prop == 'log') return (which = prop) && __
         if (prop == 'warn') return (which = prop) && __
         if (prop == 'error') return (which = prop) && __

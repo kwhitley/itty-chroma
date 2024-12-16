@@ -56,7 +56,7 @@ describe('chroma', () => {
       ['bold', 'font-weight:bold'],
       ['italic', 'font-style:italic'],
       ['underline', 'text-decoration:underline'],
-      ['strikethrough', 'text-decoration:line-through'],
+      ['strike', 'text-decoration:line-through'],
       ['font', 'font-family', 'Georgia'],
       ['size', 'font-size', '0.9em'],
       ['bg', 'background', 'rgba(255,0,0,0.3)'],
@@ -97,7 +97,7 @@ describe('chroma', () => {
     it('includes a barrier after text-decoration', () => {
       const result = chroma.red(
         'padded text',
-        chroma.strikethrough,
+        chroma.strike,
         'strike text',
         chroma.blue,
         'blue text',
