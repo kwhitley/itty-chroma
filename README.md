@@ -2,7 +2,7 @@
 
 <p>
 <a href="https://itty.dev/itty-chroma" target="_blank">
-  <img src="https://github.com/kwhitley/itty-chroma/assets/865416/e45b9e04-a442-43b1-9961-59d62c62e88a" alt="itty-chroma" height="120" />
+  <img src="https://github.com/user-attachments/assets/cfe915d5-63ce-4297-83ef-316426c7af57" alt="itty-chroma" height="120" />
 </a>
 </p>
 
