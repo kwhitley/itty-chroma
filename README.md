@@ -23,17 +23,19 @@ Powerful styling for the browser console in under 500 bytes.
 - Tiny. It's an itty library, after all.
 - Made specifically for the browser console.
 - Loads of styling options, with infinite combinations.
-- Simple and powerful API.
+- Simple and powerful API, designed for ease & readability.
 
 ## Example
 ```ts
 import { chroma } from 'itty-chroma'
 
-// you can keep it simple
+
+// you can keep it simple...
 chroma.red.bold.underline.log('This is bold, red, underlined text')
 
+
 // or go wild
-const badge = chroma.padding('3px 6px').bg('#444').color('white').radius('0.3rem')
+const badge = chroma.padding('3px 6px').bg('#444').white.radius('0.3rem')
 const description = chroma.italic.color('#666').size('0.9em')
 
 chroma.log(
@@ -47,4 +49,32 @@ chroma.log(
 ```
 
 ![image](https://github.com/user-attachments/assets/ef7ecf70-4a91-46fa-a2e9-61c9d942d412)
+
+
+
+# API
+
+Chroma exposes an infinitely-chainable function/object, allowing you to chain styles.
+
+You can also use chroma style definitions as arguments inside _other_ chroma statements, allowing for reusable, composable styles.
+
+| PROPERTY | DESCRIPTION | EXAMPLE(s) |
+| --- | --- | --- |
+| **.log** | once executed, will output to console.log | `chroma.log('hello')` |
+| **.warn** | once executed, will output to console.warn | `chroma.warn('warning text')` |
+| **.error** | once executed, will output to console.error | `chroma.error('error text')` |
+| **.bold** | bold text | `chroma.bold('this is bold')`, `chroma.bold.red('this is bold and red')` |
+| **.italic** | italicized text | `chroma.italic('this is italic')` |
+| **.underline** | underlined text | `chroma.underline('text')` |
+| **.strike** | text with a line through it | `chroma.strike('this text was removed')` |
+| **.color(value)** | sets font color, supports any valid CSS color | `chroma.color('white')`, `chroma.color('rgba(255,0,0,0.2)')` |
+| **.font(value)** | sets font, supports any valid CSS font-family | `chroma.font('Georgia')` |
+| **.size(value)** | sets font size | `chroma.size('0.8rem')` |
+| **.bg(value)** | sets background, supports any valid CSS background | `chroma.bg('salmon')` |
+| **.radius(value)** | sets border-radius (for badges) | `chroma.radius('4px')` |
+| **.border(value)** | sets border style | `chroma.border('double 5px red')` |
+| **.padding(value)** | sets padding | `chroma.padding('2px 5px')` |
+| **.style(value)** | sets custom CSS, allowing any valid sequence | `chroma.style('text-transform:uppercase;text-shadow:0 0 0.5rem rgba(255,0,100,0.5)')` |
+
+
 
