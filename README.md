@@ -20,19 +20,20 @@ Powerful styling for the browser console in under 500 bytes.
 
 ## Features
 
-- Tiny. It's about 470 bytes.
+- Tiny. It's an itty library, after all.
 - Made specifically for the browser console.
+- Loads of styling options, with infinite combinations.
 - Simple and powerful API.
 
 ## Example
 ```ts
 import { chroma } from 'itty-chroma'
 
-// keep it simple
+// you can keep it simple
 chroma.red.bold.underline.log('This is bold, red, underlined text')
 
 // or go wild
-const badge = chroma.padding('3px 6px').bg('#444').white.radius('0.3rem')
+const badge = chroma.padding('3px 6px').bg('#444').color('white').radius('0.3rem')
 const description = chroma.italic.color('#666').size('0.9em')
 
 chroma.log(
