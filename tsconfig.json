@@ -7,7 +7,7 @@
     "sourceMap": true,
     "esModuleInterop": true,
     "inlineSourceMap": false,
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": ["esnext"],
     "listEmittedFiles": false,
     "listFiles": false,
     "noFallthroughCasesInSwitch": true,
@@ -20,8 +20,7 @@
     "traceResolution": false,
     "outDir": "",
     "target": "esnext",
-    "module": "esnext",
-    "types": ["@types/node"]
+    "module": "esnext"
   },
   "exclude": ["node_modules", "dist", "**/*.spec.ts", "examples"],
   "include": ["src", "src/seconds.ts"]
