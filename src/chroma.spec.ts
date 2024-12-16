@@ -1,4 +1,4 @@
-import { describe, expect, it, spyOn } from 'bun:test'
+import { describe, expect, it, spyOn, mock } from 'bun:test'
 import { chroma } from './chroma'
 
 const isChroma = (instance: any) => typeof instance.a.b.c === 'function'
@@ -105,5 +105,14 @@ describe('chroma', () => {
       expect(result[0]).toBe('%c%s %c%s%c %c%s ')
       expect(result.indexOf('')).toBe(5)
     })
-  })  
+  })
+
+  describe('behavior', () => {
+    it('will not execute non-chroma functions in the arguments', () => {
+      const fn = mock(() => {})
+      chroma.red.log('hello', fn, 'world')
+
+      expect(fn).not.toHaveBeenCalled()
+    })
+  })
 })

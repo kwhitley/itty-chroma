@@ -42,7 +42,7 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
         let isPadded
 
         for (let a of args) {
-          if (typeof a == 'function') a = a()
+          a = a.zq?.() ?? a // any chroma functions should be executed first
           if (a?.[0]?.startsWith?.('%c')) {
             isPadded = a[1].match(/pad|dec/)
             if (wasPadded) {
@@ -75,6 +75,7 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
           (value: string) =>
             (styles += `${type}:${value};`) && __,
       ) {
+        if (prop == 'zq') return __
         if (prop == 'color') return add(prop)
         if (prop == 'bold') return add('font-weight')(prop)
         if (prop == 'italic') return add('font-style')(prop)
