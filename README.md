@@ -20,9 +20,9 @@ Powerful styling for the browser console in under 500 bytes.
 
 ## Features
 
-[x] Tiny. It's about 470 bytes.
-[x] Made specifically for the browser console.
-[x] Simple, yet powerful.
+- Tiny. It's about 470 bytes.
+- Made specifically for the browser console.
+- Simple and powerful API.
 
 ## Example
 ```ts
