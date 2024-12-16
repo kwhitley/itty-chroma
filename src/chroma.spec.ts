@@ -1,5 +1,5 @@
 import { describe, expect, it, spyOn, mock } from 'bun:test'
-import { chroma } from '../dist/chroma'
+import { chroma } from './chroma'
 
 const isChroma = (instance: any) => typeof instance.a.b.c === 'function'
 
@@ -73,6 +73,12 @@ describe('chroma', () => {
         expect(out.join(' ').indexOf(fullMatch)).not.toBe(-1)
       })
     }
+    const styleString = 'text-transform:uppercase;margin-bottom:3rem'
+
+    it(`.style("${styleString}")`, () => {
+      const out = chroma.style(styleString)()
+      expect(out.join(' ').indexOf(styleString)).not.toBe(-1)
+    })
   })
 
   describe('barrier detection', () => {
@@ -109,10 +115,12 @@ describe('chroma', () => {
 
   describe('behavior', () => {
     it('will not execute non-chroma functions in the arguments', () => {
+      const log = spyOn(console, 'log').mockImplementation(() => {})
       const fn = mock(() => {})
       chroma.red.log('hello', fn, 'world')
 
       expect(fn).not.toHaveBeenCalled()
+      log.mockRestore()
     })
   })
 })
