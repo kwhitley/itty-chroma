@@ -1,11 +1,19 @@
-import { describe, expect, it, spyOn, afterEach } from 'bun:test'
+import { describe, expect, it, spyOn } from 'bun:test'
 import { chroma } from './chroma'
 
-const isChroma = (instance: any) => typeof instance.color === 'function'
+const isChroma = (instance: any) => typeof instance.a.b.c === 'function'
 
 describe('chroma', () => {
+  it('is a function', () => {
+    expect(typeof chroma).toBe('function')
+  })
+
   it('returns the the chroma Proxy', () => {
     expect(isChroma(chroma)).toBe(true)
+  })
+
+  it('expty execution returns nothing', () => {
+    expect(typeof chroma()).toBe('undefined')
   })
 
   it('returns an infinite Proxy chain', () => {
@@ -48,7 +56,7 @@ describe('chroma', () => {
       ['bold', 'font-weight:bold'],
       ['italic', 'font-style:italic'],
       ['underline', 'text-decoration:underline'],
-      ['strike', 'text-decoration:line-through'],
+      ['strikethrough', 'text-decoration:line-through'],
       ['font', 'font-family', 'Georgia'],
       ['size', 'font-size', '0.9em'],
       ['bg', 'background', 'rgba(255,0,0,0.3)'],
@@ -85,17 +93,17 @@ describe('chroma', () => {
       expect(result[0].indexOf('%c%s%c ')).toBe(0)
       expect(result.indexOf('')).toBe(3)
     })
-  })
 
-  it('includes a barrier after text-decoration', () => {
-    const result = chroma.red(
-      'padded text',
-      chroma.strike,
-      'strike text',
-      chroma.blue,
-      'blue text',
-    )
-    expect(result[0]).toBe('%c%s %c%s%c %c%s ')
-    expect(result.indexOf('')).toBe(5)
-  })
+    it('includes a barrier after text-decoration', () => {
+      const result = chroma.red(
+        'padded text',
+        chroma.strikethrough,
+        'strike text',
+        chroma.blue,
+        'blue text',
+      )
+      expect(result[0]).toBe('%c%s %c%s%c %c%s ')
+      expect(result.indexOf('')).toBe(5)
+    })
+  })  
 })

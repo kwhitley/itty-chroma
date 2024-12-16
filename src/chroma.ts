@@ -6,7 +6,7 @@ type StyleMethods = {
   bold: ColoredProxy
   italic: ColoredProxy
   underline: ColoredProxy
-  strike: ColoredProxy
+  strikethrough: ColoredProxy
   font: StyleFunction
   size: StyleFunction
   bg: StyleFunction
@@ -79,7 +79,7 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
         if (prop == 'bold') return add('font-weight')(prop)
         if (prop == 'italic') return add('font-style')(prop)
         if (prop == 'underline') return add('text-decoration')(prop)
-        if (prop == 'strike') return add('text-decoration')('line-through')
+        if (prop == 'strikethrough') return add('text-decoration')('line-through')
         if (prop == 'font') return add('font-family')
         if (prop == 'size') return add('font-size')
         if (prop == 'bg') return add('background')
