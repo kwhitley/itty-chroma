@@ -45,3 +45,6 @@ chroma.log(
   'but this is back to normal!'
 )
 ```
+
+![image](https://github.com/user-attachments/assets/ef7ecf70-4a91-46fa-a2e9-61c9d942d412)
+
