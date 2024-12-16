@@ -1,5 +1,5 @@
 import { describe, expect, it, spyOn, mock } from 'bun:test'
-import { chroma } from './chroma'
+import { chroma } from '../dist/chroma'
 
 const isChroma = (instance: any) => typeof instance.a.b.c === 'function'
 
