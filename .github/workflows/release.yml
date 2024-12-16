@@ -24,6 +24,6 @@ jobs:
         tag_name: ${{ github.ref }}
         release_name: Release ${{ github.ref }}
         body: |
-          See [${{ github.ref_name }} CHANGELOG entry](https://github.com/kwhitley/itty-time/blob/v1.x/CHANGELOG.md#${{ steps.prep.outputs.tag }}) for notes
+          See [${{ github.ref_name }} CHANGELOG entry](https://github.com/kwhitley/itty-chroma/blob/v0.x/CHANGELOG.md#${{ steps.prep.outputs.tag }}) for notes
         draft: false
         prerelease: false
