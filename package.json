@@ -1,35 +1,15 @@
 {
-  "name": "itty-time",
-  "version": "1.0.6",
-  "description": "Ultra-small (~390 bytes) library for TTL date math and converting ms durations to and from strings.",
-  "main": "./index.js",
-  "module": "./index.mjs",
-  "types": "./index.d.ts",
+  "name": "itty-chroma",
+  "version": "0.0.1",
+  "description": "Powerful styling for the browser console in under 500 bytes.",
+  "main": "./chroma.js",
+  "module": "./chroma.mjs",
+  "types": "./chroma.d.ts",
   "exports": {
-    ".": {
-      "import": "./index.mjs",
-      "require": "./index.js",
-      "types": "./index.d.ts"
-    },
-    "./datePlus": {
-      "import": "./datePlus.mjs",
-      "require": "./datePlus.js",
-      "types": "./datePlus.d.ts"
-    },
-    "./duration": {
-      "import": "./duration.mjs",
-      "require": "./duration.js",
-      "types": "./duration.d.ts"
-    },
-    "./ms": {
-      "import": "./ms.mjs",
-      "require": "./ms.js",
-      "types": "./ms.d.ts"
-    },
-    "./seconds": {
-      "import": "./seconds.mjs",
-      "require": "./seconds.js",
-      "types": "./seconds.d.ts"
+    "./chroma": {
+      "import": "./chroma.mjs",
+      "require": "./chroma.js",
+      "types": "./chroma.d.ts"
     }
   },
   "scripts": {
@@ -45,24 +25,21 @@
     "release:next": "release --tag --push --type=next --src=dist"
   },
   "keywords": [
-    "humanize",
-    "duration",
-    "ttl",
-    "ms",
-    "months",
-    "time",
-    "dates",
-    "string",
-    "readable"
+    "browser",
+    "console",
+    "logs",
+    "color",
+    "styles",
+    "minimalist"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kwhitley/itty-time.git"
+    "url": "git+https://github.com/kwhitley/itty-chroma.git"
   },
   "author": "Kevin R. Whitley <krwhitley@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kwhitley/itty-time/issues"
+    "url": "https://github.com/kwhitley/itty-chroma/issues"
   },
   "devDependencies": {
     "@rollup/plugin-multi-entry": "^6.0.1",
