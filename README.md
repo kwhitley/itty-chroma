@@ -17,6 +17,7 @@
 ---
 
 Powerful styling for the browser console in under 500 bytes.
+![image](https://github.com/user-attachments/assets/1ac23229-111c-4434-a6ce-379b55d71a71)
 
 ## Features
 
