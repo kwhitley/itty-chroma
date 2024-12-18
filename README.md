@@ -156,9 +156,10 @@ warning('But this is a more serious warning text...')
 ```
 ![image](https://github.com/user-attachments/assets/58cdbcbb-51c3-4b67-8fe8-323bf3a094cd)
 
-# API
+<br /><br /><br />
+Whew.  That's a lot.  For a complete list of options, see the complete API:
 
-Here's the complete list of supported chroma properties.  All unlisted properties will be interpreted as a CSS color name (invalid colors simply clear the style).
+# Supported Properties
 
 | PROPERTY | DESCRIPTION | EXAMPLE(s) |
 | --- | --- | --- |
