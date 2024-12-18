@@ -67,6 +67,7 @@ You can also use chroma style definitions as arguments inside _other_ chroma sta
 | **.italic** | italicized text | `chroma.italic('this is italic')` |
 | **.underline** | underlined text | `chroma.underline('text')` |
 | **.strike** | text with a line through it | `chroma.strike('this text was removed')` |
+| **.{colorName}** | sets text color, supports any valid CSS color name | `chroma.magenta`, `chroma.lightGreen` |
 | **.color(value)** | sets font color, supports any valid CSS color | `chroma.color('white')`, `chroma.color('rgba(255,0,0,0.2)')` |
 | **.font(value)** | sets font, supports any valid CSS font-family | `chroma.font('Georgia')` |
 | **.size(value)** | sets font size | `chroma.size('0.8rem')` |
@@ -75,6 +76,9 @@ You can also use chroma style definitions as arguments inside _other_ chroma sta
 | **.border(value)** | sets border style | `chroma.border('double 5px red')` |
 | **.padding(value)** | sets padding | `chroma.padding('2px 5px')` |
 | **.style(value)** | sets custom CSS, allowing any valid sequence | `chroma.style('text-transform:uppercase;text-shadow:0 0 0.5rem rgba(255,0,100,0.5)')` |
+| **.none**<sup>1</sup> | clears styling for subsequent arguments | `chroma.red('red text', chroma.none, 'plain text')` |
 
+
+<sup>1</sup> <small>Any invalid CSS color name can be used in place of **chroma.none**, as this utimately turns into `"color:none;"`. Alternatively, you could use **chroma.clear**, **chroma.noStyle**, or anything else.</small>
 
 
