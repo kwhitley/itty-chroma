@@ -29,18 +29,16 @@ Powerful styling for the browser console in under 500 bytes.
 ```ts
 import { chroma } from 'itty-chroma'
 
+// KEEP IT SIMPLE
+chroma.red.bold.log('This is bold red text')
 
-// you can keep it simple...
-chroma.red.bold.underline.log('This is bold, red, underlined text')
-
-
-// or go wild
-const badge = chroma.padding('3px 6px').bg('#444').white.radius('0.3rem')
+// OR GO WILD
+const badge = chroma.padding('3px 6px').bg('#444').white.radius('3px')
 const description = chroma.italic.color('#666').size('0.9em')
 
 chroma.log(
-  badge('Did You Know?'),
-  description,
+  badge('Did You Know?'),     // pass args directly to any chroma segment
+  description,                // or place inline to affect later arguments
   'this is now in smaller, italic text',
   'and so is this... until we switch styles again',
   chroma.none,
@@ -78,7 +76,11 @@ You can also use chroma style definitions as arguments inside _other_ chroma sta
 | **.style(value)** | sets custom CSS, allowing any valid sequence | `chroma.style('text-transform:uppercase;text-shadow:0 0 0.5rem rgba(255,0,100,0.5)')` |
 | **.none**<sup>1</sup> | clears styling for subsequent arguments | `chroma.red('red text', chroma.none, 'plain text')` |
 
-
 <sup>1</sup> <small>Any invalid CSS color name can be used in place of **chroma.none**, as this utimately turns into `"color:none;"`. Alternatively, you could use **chroma.clear**, **chroma.noStyle**, or anything else.</small>
 
+## Examples
+
+```ts
+
+```
 
