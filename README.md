@@ -156,8 +156,7 @@ warning('But this is a more serious warning text...')
 ```
 ![image](https://github.com/user-attachments/assets/58cdbcbb-51c3-4b67-8fe8-323bf3a094cd)
 
-<br /><br /><br />
-Whew.  That's a lot.  For a complete list of options, see the complete API:
+<br />
 
 # Supported Properties
 
