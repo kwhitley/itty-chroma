@@ -4,3 +4,7 @@
 - test release
 #### v0.1.15
 - mic check... check, check
+#### v0.1.16
+- updates to README
+#### v0.1.17
+- semifinal README
