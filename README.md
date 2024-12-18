@@ -28,6 +28,8 @@ Powerful styling for the browser console in under 500 bytes.
 
 ## Example
 ```ts
+import { chroma } from 'itty-chroma'
+
 // keep it simple
 chroma.red.log('This will be red.')
 
