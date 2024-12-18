@@ -28,32 +28,27 @@ Powerful styling for the browser console in under 500 bytes.
 
 ## Example
 ```ts
-import { chroma } from 'itty-chroma'
+// keep it simple
+chroma.red.log('This will be red.')
 
-// KEEP IT SIMPLE
-chroma.red.bold.log('This is bold red text')
-
-// OR GO WILD
-const badge = chroma.padding('3px 6px').bg('#444').white.radius('3px')
-const description = chroma.italic.color('#666').size('0.9em')
-
+// or play a little
 chroma.log(
-  badge('Did You Know?'),     // pass args directly to any chroma segment
-  description,                // or drop them inline to change style
-  'this is now in smaller, italic text',
-  'and so is this... until we switch styles again',
-  chroma.none,
-  'but this is back to normal!'
+  chroma.green,                // set the color to green
+  'This is all',
+  'green.',
+  chroma.blue.underline.bold,  // now switch to blue
+  'Now this is blue.',
 )
 ```
-
-![image](https://github.com/user-attachments/assets/ef7ecf70-4a91-46fa-a2e9-61c9d942d412)
+![image](https://github.com/user-attachments/assets/7f84014b-97e1-474f-8020-3430efd3e0c6)
 
 # How it Works
 
-Call/access properties to add multiple styles, then call the function itself to trigger the output.  
+Chroma is an infinite proxy object/function chain... *thingy*... that assembles styles before sending them to `console.log`.
 
-Otherwise, it follows the following behaviors:
+This sounds very confusing... which is understandable, because it was confusing to write as well.
+
+## Here are the basic rules:
 
 ### 1. Use `chroma.log` (or warn/error) to output to console.
 ```ts
@@ -64,7 +59,7 @@ chroma.error('text') // console.error('text')
 ![image](https://github.com/user-attachments/assets/0c82f3e9-0fae-4e4a-a021-6d334874ed00)
 
 
-### 2. Chroma segments
+### 2. Use chroma segments to apply styles
 You can call them directly:
 ```ts
 chroma.bold.red.log('This will be red.')
@@ -172,9 +167,7 @@ warning('But this is a more serious warning text...')
 
 # API
 
-Chroma exposes an infinitely-chainable function/object, allowing you to chain styles.
-
-You can also use chroma style definitions as arguments inside _other_ chroma statements, allowing for reusable, composable styles.
+Here's the complete list of supported chroma properties.  All unlisted properties will be interpreted as a CSS color name (invalid colors simply clear the style).
 
 | PROPERTY | DESCRIPTION | EXAMPLE(s) |
 | --- | --- | --- |
