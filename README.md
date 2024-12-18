@@ -17,14 +17,7 @@
 ---
 
 Powerful styling for the browser console in under 500 bytes.
-![image](https://github.com/user-attachments/assets/1ac23229-111c-4434-a6ce-379b55d71a71)
-
-## Features
-
-- Tiny. It's an itty library, after all.
-- Made specifically for the browser console.
-- Loads of styling options, with infinite combinations.
-- Simple and powerful API, designed for ease & readability.
+<!--![image](https://github.com/user-attachments/assets/1ac23229-111c-4434-a6ce-379b55d71a71)-->
 
 ## Example
 ```ts
@@ -44,15 +37,24 @@ chroma.log(
 ```
 ![image](https://github.com/user-attachments/assets/7f84014b-97e1-474f-8020-3430efd3e0c6)
 
+## Features
+
+- Tiny. It's an itty library, after all.
+- Made specifically for the browser console.
+- Loads of styling options, with infinite combinations.
+- Simple and powerful API, designed for ease & readability.
+
+<br />
+
 # How it Works
 
 Chroma is an infinite proxy object/function chain... *thingy*... that assembles styles before sending them to `console.log`.
 
 This sounds very confusing... which is understandable, because it was confusing to write as well.
 
-## Here are the basic rules:
+Here are the basic rules:
 
-### 1. Use `chroma.log` (or warn/error) to output to console.
+### 1. Use `chroma.log` (also supports `warn` and `error`) to enable styling
 ```ts
 chroma.log('text') // console.log('text')
 chroma.warn('text') // console.warn('text')
@@ -61,32 +63,34 @@ chroma.error('text') // console.error('text')
 ![image](https://github.com/user-attachments/assets/0c82f3e9-0fae-4e4a-a021-6d334874ed00)
 
 
-### 2. Use chroma segments to apply styles
-You can call them directly:
+### 2. Add styles by chaining style properties
 ```ts
+// call a segment directly, using .log
 chroma.bold.red.log('This will be red.')
 ```
 ![image](https://github.com/user-attachments/assets/63a78004-87f2-4bf2-ba9e-60407b986419)
 
-
-Use them inside other chroma statements:
+### 3. Or compose using chroma segments
 ```ts
 chroma.log(
-  chroma.bold.green,
+  chroma.bold.green, 
   'This will be green.'
 )
 ```
 ![image](https://github.com/user-attachments/assets/04a68ebd-3c46-45cc-ad71-9ed8e68b98fc)
 
-Save them for later:
+These can be saved for re-use:
 ```ts
 const blue = chroma.bold.blue
 
-chroma.log(blue, 'This will be blue.')
+chroma.log(
+  blue,
+  'This will be blue.'
+)
 ```
 ![image](https://github.com/user-attachments/assets/d1083073-f33d-4356-8b21-37ae02fe0d3c)
 
-Or even make a logger:
+They can also be saved with the `.log` as a custom logger:
 ```ts
 const ittyLogger = chroma.bold.color("#f0c").log
 
@@ -94,7 +98,7 @@ ittyLogger('This will be itty-colored.')
 ```
 ![image](https://github.com/user-attachments/assets/0a2e05aa-923c-4d47-98b8-bf3f583a3cf4)
 
-### 3. All valid CSS color names may be used (100% support)
+### 4. Any valid CSS color name works (100% support)
 ```ts
 chroma.salmon.log('This is salmon.')
 chroma.cornflowerblue.log('This is cornflowerblue.')
@@ -102,7 +106,7 @@ chroma.cornFlowerBlue.log('Case does not matter here...')
 ```
 ![image](https://github.com/user-attachments/assets/b363fcec-a289-4f25-af8c-d3d5f31e532f)
 
-### 3. Any valid CSS can be used for property values that expect a value
+### 5. All valid CSS works within properties that expect a value
 ```ts
 chroma
   .color('rgba(255,0,100,0.4)')
@@ -110,7 +114,7 @@ chroma
 ```
 ![image](https://github.com/user-attachments/assets/98f978a0-87b6-4488-8f22-696452e927d0)
 
-### 4. Or completely custom CSS can be inlined using `.style(css: string)`
+### 6. ...or use your own custom CSS with `.style(css: string)`
 ```ts
 chroma
   .size('2em')
@@ -120,8 +124,7 @@ chroma
 ```
 ![image](https://github.com/user-attachments/assets/3a6e5bcf-99ab-4616-9794-579c2e0e6cc8)
 
-### 5. A style will continue to apply until replaced, or cleared using **`chroma.none`**
-
+### 7. A style will continue until replaced, or cleared using **`chroma.none`**
 ```ts
 chroma.log(
   chroma.red('this will be red'),
@@ -132,21 +135,7 @@ chroma.log(
 ```
 ![image](https://github.com/user-attachments/assets/d970e8c1-1249-4a39-a183-845ccd5d841f)
 
-### 6. Either called/uncalled segments can be used in assembling messages
-
-```ts
-const called = chroma.red('red text')
-const uncalled = chroma.blue
-
-chroma.log(
-  called,
-  uncalled,
-  'blue text',
-)
-```
-![image](https://github.com/user-attachments/assets/76d85a9f-2de1-4bc8-9beb-24547a76db31)
-
-### 7. Example: Creating custom log messages
+### 8. Example: Creating custom log functions
 ```ts
 // we define a curried function to accept some args now, some later
 const createLogger = (type = 'log', label, badge = 'grey', text = 'grey') => 
