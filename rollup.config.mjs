@@ -9,16 +9,18 @@ export default {
     {
       format: 'esm',
       file: './dist/chroma.mjs',
-      sourcemap: false,
     },
     {
       format: 'cjs',
       file: './dist/chroma.js',
-      sourcemap: false,
+    },
+    {
+      format: 'esm',
+      file: './dist/chroma.snippet.js',
     },
   ],
   plugins: [
-    typescript({ sourceMap: false }),
+    typescript(),
     terser(),
     bundleSize(),
     copy({

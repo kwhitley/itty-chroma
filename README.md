@@ -73,7 +73,7 @@ chroma.bold.red.log('This will be red.')
 ### 3. Or compose using chroma segments
 ```ts
 chroma.log(
-  chroma.bold.green, 
+  chroma.bold.green,
   'This will be green.'
 )
 ```
@@ -138,8 +138,8 @@ chroma.log(
 ### 8. Example: Creating custom log functions
 ```ts
 // we define a curried function to accept some args now, some later
-const createLogger = (type = 'log', label, badge = 'grey', text = 'grey') => 
-  (...args) => 
+const createLogger = (type = 'log', label, badge = 'grey', text = 'grey') =>
+  (...args) =>
     chroma[type](
       chroma.bg(badge).white.bold.padding('2px 5px 1px').radius('0.2rem')(label),
       chroma.color(text).italic,
@@ -182,4 +182,12 @@ warning('But this is a more serious warning text...')
 
 <sup>1</sup> <small>Any invalid CSS color name can be used in place of **chroma.none**, as this utimately turns into `"color:none;"`. Alternatively, you could use **chroma.clear**, **chroma.noStyle**, or anything else.</small>
 
+## Browser Usage
 
+For use in browser/DevTools scripting, copy and paste this snippet directly into your browser console, then use as normal:
+
+<!-- BEGIN SNIPPET -->
+```ts
+let chroma=new Proxy((()=>{}),{get:(e,o,t,r="",i)=>new Proxy(((...e)=>{let o,t=[r],c="%c",n=r.match(/pad|dec/);for(let r of e)r?.ii&&(r=r()),"%c"==r?.[0]?.slice(0,2)?(o=r[1].match(/pad|dec/),n&&(c=c.slice(0,-1)),n&&!o&&(c+="%c ",t.push("")),c+=r[0],t.push(...r.slice(1)),n=o):(c+="object"==typeof r?"%o ":"%s ",t.push(r));return i?console[i](c.trim(),...t):[c,...t]}),{get:(e,o,t,c=e=>o=>(r+=e+":"+o+";",t))=>"color"==o?c(o):"bold"==o?c`font-weight`(o):"italic"==o?c`font-style`(o):"underline"==o?c`text-decoration`(o):"strike"==o?c`text-decoration``line-through`:"font"==o?c`font-family`:"size"==o?c`font-size`:"bg"==o?c`background`:"style"==o?c``:"radius"==o?c`border-radius`:"padding"==o||"border"==o?c(o):"log"==o||"warn"==o||"error"==o?(i=o,t):c`color`(o)})[o]});
+```
+<!-- END SNIPPET -->

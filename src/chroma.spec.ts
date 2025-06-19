@@ -31,7 +31,7 @@ describe('chroma', () => {
     expect(log).toHaveBeenCalledTimes(1)
     log.mockRestore()
   })
-  
+
   describe('output support', () => {
     const types = ['log', 'warn', 'error']
 
