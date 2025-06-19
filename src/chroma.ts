@@ -32,7 +32,7 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
     prop: string,
     __: any,
     styles: string = '',
-    which: string | undefined,
+    which: string | undefined
   ) {
     return new Proxy(
       // @ts-ignore
@@ -42,10 +42,10 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
         let wasPadded: any = styles.match(/pad|dec/)
         let isPadded
 
-        for (let a of args) {
-          if (a?.zq) a = a() // any chroma functions should be executed first
-          if (a?.[0]?.startsWith?.('%c')) {
-            isPadded = a[1].match(/pad|dec/)
+        for (let arg of args) {
+          if (arg?.ii) arg = arg() // any chroma functions should be executed first
+          if (arg?.[0]?.slice(0,2) == '%c') {
+            isPadded = arg[1].match(/pad|dec/)
             if (wasPadded) {
               base = base.slice(0, -1)
             }
@@ -53,12 +53,12 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
               base += '%c '
               out.push('')
             }
-            base += a[0] 
-            out.push(...a.slice(1))
+            base += arg[0]
+            out.push(...arg.slice(1))
             wasPadded = isPadded
           } else {
-            base += typeof a == 'object' ? '%o ' : '%s '
-            out.push(a)
+            base += typeof arg == 'object' ? '%o ' : '%s '
+            out.push(arg)
           }
         }
 
@@ -72,28 +72,27 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
         _: any,
         prop: string,
         __: any,
-        add = (type: string) =>
-          (value: string) =>
-            // (styles += `${type}${type ? ':' : ''}${value};`) && __,
-            (styles += (type ? `${type}:${value}` : value) + ';') && __,
+        add = (t: string | TemplateStringsArray) =>
+          (x: any) =>
+            (styles += t + ':' + x + ';', __)
       ) {
         if (prop == 'color') return add(prop)
-        if (prop == 'bold') return add('font-weight')(prop)
-        if (prop == 'italic') return add('font-style')(prop)
-        if (prop == 'underline') return add('text-decoration')(prop)
-        if (prop == 'strike') return add('text-decoration')('line-through')
-        if (prop == 'font') return add('font-family')
-        if (prop == 'size') return add('font-size')
-        if (prop == 'bg') return add('background')
-        if (prop == 'radius') return add('border-radius')
+        if (prop == 'bold') return add`font-weight`(prop)
+        if (prop == 'italic') return add`font-style`(prop)
+        if (prop == 'underline') return add`text-decoration`(prop)
+        if (prop == 'strike') return add`text-decoration``line-through`
+        if (prop == 'font') return add`font-family`
+        if (prop == 'size') return add`font-size`
+        if (prop == 'bg') return add`background`
+        if (prop == 'style') return add``
+        if (prop == 'radius') return add`border-radius`
         if (prop == 'padding') return add(prop)
         if (prop == 'border') return add(prop)
-        if (prop == 'style') return add('')   
-        if (prop == 'log') return (which = prop) && __
-        if (prop == 'warn') return (which = prop) && __
-        if (prop == 'error') return (which = prop) && __
+        if (prop == 'log') return (which = prop, __)
+        if (prop == 'warn') return (which = prop, __)
+        if (prop == 'error') return (which = prop, __)
 
-        return add('color')(prop)
+        return add`color`(prop)
       },
     })[prop]
   }
