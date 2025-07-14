@@ -6,6 +6,12 @@
   "linter": {
     "enabled": true,
     "rules": {
+      "complexity": {
+        "noCommaOperator": "off"
+      },
+      "correctness": {
+        "noUnusedVariables": "error"
+      },
       "style": {
         "useConsistentArrayType": "off",
         "useConst": "off",
@@ -17,9 +23,6 @@
         "noConfusingVoidType": "off",
         "noDoubleEquals": "off",
         "noExplicitAny": "off"
-      },
-      "correctness": {
-        "noUnusedVariables": "error"
       }
     }
   },

@@ -59,7 +59,7 @@ const createProxy = (styles = '', which?: string): ColoredProxy =>
       get(_, prop: string) {
         const add = (type: string) =>
           (value: string) =>
-            createProxy(styles + (type ? `${type}:${value}` : value) + ';', which)
+            createProxy(styles + (type ? type + ':' + value : value) + ';', which)
 
         return prop == 'color' ? add(prop)
           : prop == 'bold' ? add('font-weight')(prop)
