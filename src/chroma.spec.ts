@@ -1,9 +1,11 @@
-import { describe, expect, it, spyOn, mock } from 'bun:test'
+import { describe, expect, it, mock, spyOn } from 'bun:test'
 import { chroma } from './chroma'
 
 type TestLeaf = (args: {
   chroma: typeof chroma
-  spyConsole: (method: 'log' | 'warn' | 'error') => jest.SpyInstance
+  log: any,
+  warn: any,
+  error: any,
   mockFn: typeof mock
 }) => void
 
@@ -27,26 +29,24 @@ const tests: TestTree = {
   },
   'OUTPUT METHODS': {
     'console.log delegation': {
-      '.log() calls console.log': ({ spyConsole }) => {
-        const logSpy = spyConsole('log')
+      '.log() calls console.log': ({ log }) => {
         const result = chroma.a.b.log.d('xyz')
         expect(Array.isArray(result)).toBe(false)
+        // @ts-ignore
         expect(result).toBe(undefined)
-        expect(logSpy).toHaveBeenCalledTimes(1)
+        expect(log).toHaveBeenCalledTimes(1)
       },
     },
     'console.warn delegation': {
-      '.warn() calls console.warn': ({ spyConsole }) => {
-        const warnSpy = spyConsole('warn')
+      '.warn() calls console.warn': ({ warn }) => {
         chroma.warn('hey')
-        expect(warnSpy).toHaveBeenCalledTimes(1)
+        expect(warn).toHaveBeenCalledTimes(1)
       },
     },
     'console.error delegation': {
-      '.error() calls console.error': ({ spyConsole }) => {
-        const errorSpy = spyConsole('error')
+      '.error() calls console.error': ({ error }) => {
         chroma.error('hey')
-        expect(errorSpy).toHaveBeenCalledTimes(1)
+        expect(error).toHaveBeenCalledTimes(1)
       },
     },
   },
@@ -150,26 +150,23 @@ const tests: TestTree = {
   },
   'BEHAVIOR': {
     'function execution': {
-      'will not execute non-chroma functions in arguments': ({ spyConsole, mockFn }) => {
-        const logSpy = spyConsole('log')
-        const fn = mockFn(() => {})
-        chroma.red.log('hello', fn, 'world')
+      'will not execute non-chroma functions in arguments': ({ mockFn }) => {
+        chroma.red.log('hello', mockFn, 'world')
 
-        expect(fn).not.toHaveBeenCalled()
-        logSpy.mockRestore()
+        expect(mockFn).not.toHaveBeenCalled()
       },
     },
     'state isolation': {
       'partials do not mutate each other': () => {
         const red = chroma.red
-        
+
         // Use red with additional styles
         red.bold.italic('test')
-        
+
         // red should still only be red, not bold+italic
         const result = red('this should only be red')
         const styleString = result.join(' ')
-        
+
         expect(styleString).toContain('color:red')
         expect(styleString).not.toContain('font-weight:bold')
         expect(styleString).not.toContain('font-style:italic')
@@ -180,14 +177,12 @@ const tests: TestTree = {
 
 // Setup function for each test
 const setup = () => {
-  const spyConsole = (method: 'log' | 'warn' | 'error') => {
-    return spyOn(console, method).mockImplementation(() => {})
-  }
-
   return {
     chroma,
-    spyConsole,
-    mockFn: mock,
+    warn: spyOn(console, 'warn').mockImplementation(() => {}),
+    log: spyOn(console, 'log').mockImplementation(() => {}),
+    error: spyOn(console, 'error').mockImplementation(() => {}),
+    mockFn: mock(() => {}),
   }
 }
 
@@ -195,7 +190,7 @@ const setup = () => {
 const runTests = (tests: TestTree) => {
   for (const [name, test] of Object.entries(tests)) {
     if (typeof test === 'function') {
-      it(name, () => test(setup()))
+      it(name, () => test(setup() as any))
     } else {
       describe(name, () => runTests(test))
     }
