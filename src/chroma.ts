@@ -53,7 +53,7 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
               base += '%c '
               out.push('')
             }
-            base += a[0] 
+            base += a[0]
             out.push(...a.slice(1))
             wasPadded = isPadded
           } else {
@@ -74,8 +74,7 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
         __: any,
         add = (type: string) =>
           (value: string) =>
-            // (styles += `${type}${type ? ':' : ''}${value};`) && __,
-            (styles += (type ? `${type}:${value}` : value) + ';') && __,
+            (styles = styles + (type ? `${type}:${value}` : value) + ';') && __,
       ) {
         if (prop == 'color') return add(prop)
         if (prop == 'bold') return add('font-weight')(prop)
@@ -88,7 +87,7 @@ export const chroma: ColoredProxy = new Proxy(() => {}, {
         if (prop == 'radius') return add('border-radius')
         if (prop == 'padding') return add(prop)
         if (prop == 'border') return add(prop)
-        if (prop == 'style') return add('')   
+        if (prop == 'style') return add('')
         if (prop == 'log') return (which = prop) && __
         if (prop == 'warn') return (which = prop) && __
         if (prop == 'error') return (which = prop) && __
