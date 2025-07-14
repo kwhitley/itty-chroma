@@ -46,6 +46,23 @@ chroma.log(
 
 <br />
 
+# Quick Start
+
+### Option 1: Import
+```ts
+import { fetcher } from 'itty-fetcher'
+```
+
+### Option 2: Just copy this snippet:
+<!-- BEGIN SNIPPET -->
+```ts
+let chroma=(e="",o)=>new Proxy(((...t)=>{if(!t.length&&!e)return;let r,n=[e],c="%c",i=e.match(/pad|dec/);for(let e of t)e?.zq&&(e=e()),e?.[0]?.startsWith?.("%c")?(r=e[1].match(/pad|dec/),i&&(c=c.slice(0,-1)),i&&!r&&(c+="%c ",n.push("")),c+=e[0],n.push(...e.slice(1)),i=r):(c+="object"==typeof e?"%o ":"%s ",n.push(e));return o?console[o](c.trim(),...n):[c,...n]}),{get(r,n){const c=r=>n=>t(e+(r?r+":"+n:n)+";",o);return"color"==n?c(n):"bold"==n?c("font-weight")(n):"italic"==n?c("font-style")(n):"underline"==n?c("text-decoration")(n):"strike"==n?c("text-decoration")("line-through"):"font"==n?c("font-family"):"size"==n?c("font-size"):"bg"==n?c("background"):"radius"==n?c("border-radius"):"padding"==n||"border"==n?c(n):"style"==n?c(""):"log"==n||"warn"==n||"error"==n?t(e,n):c("color")(n)}}),e=t();
+```
+<!-- END SNIPPET -->
+_Note: This will lose TypeScript support, but is great for adding to your browser console (via script extensions, etc)._
+
+<br />
+
 # How it Works
 
 Chroma is an infinite proxy object/function chain... *thingy*... that assembles styles before sending them to `console.log`.
@@ -73,7 +90,7 @@ chroma.bold.red.log('This will be red.')
 ### 3. Or compose using chroma segments
 ```ts
 chroma.log(
-  chroma.bold.green, 
+  chroma.bold.green,
   'This will be green.'
 )
 ```
@@ -138,8 +155,8 @@ chroma.log(
 ### 8. Example: Creating custom log functions
 ```ts
 // we define a curried function to accept some args now, some later
-const createLogger = (type = 'log', label, badge = 'grey', text = 'grey') => 
-  (...args) => 
+const createLogger = (type = 'log', label, badge = 'grey', text = 'grey') =>
+  (...args) =>
     chroma[type](
       chroma.bg(badge).white.bold.padding('2px 5px 1px').radius('0.2rem')(label),
       chroma.color(text).italic,
