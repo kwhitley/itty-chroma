@@ -24,7 +24,10 @@ type ColoredProxy = {
   [key: string]: ColoredProxy // Allows dynamic colors or methods like "red", "green", etc.
 } & StyleMethods & OutputFunction
 
-const createProxy = (styles = '', which?: string): ColoredProxy =>
+const createProxy = (
+  styles = '',
+  which?: string
+): ColoredProxy =>
   new Proxy(
     // @ts-ignore
     (...args: any[]) => {
