@@ -66,11 +66,7 @@ _Note: This will lose TypeScript support, but is great for adding to your browse
 
 # How it Works
 
-Chroma is an infinite proxy object/function chain... *thingy*... that assembles styles before sending them to `console.log`.
-
-This sounds very confusing... which is understandable, because it was confusing to write as well.
-
-Here are the basic rules:
+Chroma allows you to chain easy-to-read styles (in any order) before adding a log/warn/error call to render.  Chroma takes these parts (including ones passed as arguments), assembling them into the final console statement, complete with injected CSS.
 
 ### 1. Use `chroma.log` (also supports `warn` and `error`) to enable styling
 ```ts
