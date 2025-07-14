@@ -39,10 +39,11 @@ chroma.log(
 
 ## Features
 
-- Tiny. It's an itty library, after all.
-- Made specifically for the browser console.
-- Loads of styling options, with infinite combinations.
-- Simple and powerful API, designed for ease & readability.
+- *Easily* add colors, styles, etc. to browser log messages (it was always possible, just not easy).
+- Simple, infinite-chaining syntax.
+- Full custom CSS support.
+- Fully Typed
+- Tiny.
 
 <br />
 
@@ -50,7 +51,7 @@ chroma.log(
 
 ### Option 1: Import
 ```ts
-import { fetcher } from 'itty-fetcher'
+import { chroma } from 'itty-chroma'
 ```
 
 ### Option 2: Just copy this snippet:
