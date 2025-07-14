@@ -24,28 +24,23 @@ type ColoredProxy = {
   [key: string]: ColoredProxy // Allows dynamic colors or methods like "red", "green", etc.
 } & StyleMethods & OutputFunction
 
-const createProxy = (styles: string = '', which?: string): ColoredProxy => {
-  return new Proxy(
+const createProxy = (styles = '', which?: string): ColoredProxy =>
+  new Proxy(
     // @ts-ignore
     (...args: any[]) => {
-      if (args.length === 0 && !styles) return undefined
-      
-      let out = [styles]
-      let base = '%c'
-      let wasPadded: any = styles.match(/pad|dec/)
-      let isPadded: any
+      if (!args.length && !styles) return
+
+      let out = [styles],
+        base = '%c',
+        wasPadded = styles.match(/pad|dec/),
+        isPadded: any
 
       for (let a of args) {
-        if (a?.zq) a = a() // any chroma functions should be executed first
+        a?.zq && (a = a())
         if (a?.[0]?.startsWith?.('%c')) {
           isPadded = a[1].match(/pad|dec/)
-          if (wasPadded) {
-            base = base.slice(0, -1)
-          }
-          if (wasPadded && !isPadded) {
-            base += '%c '
-            out.push('')
-          }
+          wasPadded && (base = base.slice(0, -1))
+          wasPadded && !isPadded && (base += '%c ', out.push(''))
           base += a[0]
           out.push(...a.slice(1))
           wasPadded = isPadded
@@ -63,32 +58,25 @@ const createProxy = (styles: string = '', which?: string): ColoredProxy => {
     {
       get(_, prop: string) {
         const add = (type: string) =>
-          (value: string) => {
-            const newStyles = styles + (type ? `${type}:${value}` : value) + ';'
-            return createProxy(newStyles, which)
-          }
+          (value: string) =>
+            createProxy(styles + (type ? `${type}:${value}` : value) + ';', which)
 
-        if (prop == 'color') return add(prop)
-        if (prop == 'bold') return add('font-weight')(prop)
-        if (prop == 'italic') return add('font-style')(prop)
-        if (prop == 'underline') return add('text-decoration')(prop)
-        if (prop == 'strike') return add('text-decoration')('line-through')
-        if (prop == 'font') return add('font-family')
-        if (prop == 'size') return add('font-size')
-        if (prop == 'bg') return add('background')
-        if (prop == 'radius') return add('border-radius')
-        if (prop == 'padding') return add(prop)
-        if (prop == 'border') return add(prop)
-        if (prop == 'style') return add('')   
-        if (prop == 'log') return createProxy(styles, prop)
-        if (prop == 'warn') return createProxy(styles, prop)
-        if (prop == 'error') return createProxy(styles, prop)
-
-        return add('color')(prop)
+        return prop == 'color' ? add(prop)
+          : prop == 'bold' ? add('font-weight')(prop)
+          : prop == 'italic' ? add('font-style')(prop)
+          : prop == 'underline' ? add('text-decoration')(prop)
+          : prop == 'strike' ? add('text-decoration')('line-through')
+          : prop == 'font' ? add('font-family')
+          : prop == 'size' ? add('font-size')
+          : prop == 'bg' ? add('background')
+          : prop == 'radius' ? add('border-radius')
+          : prop == 'padding' || prop == 'border' ? add(prop)
+          : prop == 'style' ? add('')
+          : prop == 'log' || prop == 'warn' || prop == 'error' ? createProxy(styles, prop)
+          : add('color')(prop)
       },
     }
   ) as ColoredProxy
-}
 
 // @ts-ignore
 export const chroma: ColoredProxy = createProxy()
