@@ -39,20 +39,34 @@ chroma.log(
 
 ## Features
 
-- Tiny. It's an itty library, after all.
-- Made specifically for the browser console.
-- Loads of styling options, with infinite combinations.
-- Simple and powerful API, designed for ease & readability.
+- *Easily* add colors, styles, etc. to browser log messages (it was always possible, just not easy).
+- Simple, infinite-chaining syntax.
+- Full custom CSS support.
+- Fully Typed
+- Tiny.
+
+<br />
+
+# Quick Start
+
+### Option 1: Import
+```ts
+import { chroma } from 'itty-chroma'
+```
+
+### Option 2: Just copy this snippet:
+<!-- BEGIN SNIPPET -->
+```ts
+let t=(e="",o)=>new Proxy(((...t)=>{if(!t.length&&!e)return;let r,i=[e],n="%c",l=e.match(/pad|dec/);for(let e of t)e?.zq&&(e=e()),e?.[0]?.startsWith?.("%c")?(r=e[1].match(/pad|dec/),l&&(n=n.slice(0,-1)),l&&!r&&(n+="%c ",i.push("")),n+=e[0],i.push(...e.slice(1)),l=r):(n+="object"==typeof e?"%o ":"%s ",i.push(e));return o?console[o](n.trim(),...i):[n,...i]}),{get(r,i){let n=r=>i=>t(e+(r?r+":"+i:i)+";",o);return"color"==i?n(i):"bold"==i?n("font-weight")(i):"italic"==i?n("font-style")(i):"underline"==i?n("text-decoration")(i):"strike"==i?n("text-decoration")("line-through"):"font"==i?n("font-family"):"size"==i?n("font-size"):"bg"==i?n("background"):"radius"==i?n("border-radius"):"padding"==i||"border"==i?n(i):"style"==i?n(""):"log"==i||"warn"==i||"error"==i?t(e,i):n("color")(i)}}),chroma=t();
+```
+<!-- END SNIPPET -->
+_Note: This will lose TypeScript support, but is great for adding to your browser console (via script extensions, etc)._
 
 <br />
 
 # How it Works
 
-Chroma is an infinite proxy object/function chain... *thingy*... that assembles styles before sending them to `console.log`.
-
-This sounds very confusing... which is understandable, because it was confusing to write as well.
-
-Here are the basic rules:
+Chroma allows you to chain easy-to-read styles (in any order) before adding a log/warn/error call to render.  Chroma takes these parts (including ones passed as arguments), assembling them into the final console statement, complete with injected CSS.
 
 ### 1. Use `chroma.log` (also supports `warn` and `error`) to enable styling
 ```ts
@@ -73,7 +87,7 @@ chroma.bold.red.log('This will be red.')
 ### 3. Or compose using chroma segments
 ```ts
 chroma.log(
-  chroma.bold.green, 
+  chroma.bold.green,
   'This will be green.'
 )
 ```
@@ -138,8 +152,8 @@ chroma.log(
 ### 8. Example: Creating custom log functions
 ```ts
 // we define a curried function to accept some args now, some later
-const createLogger = (type = 'log', label, badge = 'grey', text = 'grey') => 
-  (...args) => 
+const createLogger = (type = 'log', label, badge = 'grey', text = 'grey') =>
+  (...args) =>
     chroma[type](
       chroma.bg(badge).white.bold.padding('2px 5px 1px').radius('0.2rem')(label),
       chroma.color(text).italic,
