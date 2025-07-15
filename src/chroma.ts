@@ -24,7 +24,7 @@ type ColoredProxy = {
   [key: string]: ColoredProxy // Allows dynamic colors or methods like "red", "green", etc.
 } & StyleMethods & OutputFunction
 
-const createProxy = (
+let createProxy = (
   styles = '',
   which?: string
 ): ColoredProxy =>
@@ -60,7 +60,7 @@ const createProxy = (
     },
     {
       get(_, prop: string) {
-        const add = (type: string) =>
+        let add = (type: string) =>
           (value: string) =>
             createProxy(styles + (type ? type + ':' + value : value) + ';', which)
 
@@ -82,4 +82,4 @@ const createProxy = (
   ) as ColoredProxy
 
 // @ts-ignore
-export const chroma: ColoredProxy = createProxy()
+export let chroma: ColoredProxy = createProxy()
