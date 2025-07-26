@@ -23,16 +23,14 @@
 
 ### Example
 ```ts
-import { chroma } from 'itty-chroma'
-
 // keep it simple
 chroma.red.log('This will be red.')
 
 // or play a little
 chroma.log(
   chroma.green,                // set the color to green
-  'This is all',
-  'green.',
+  'This is green',
+  '{ foo: 'bar' }',
   chroma.blue.underline.bold,  // now switch to blue
   'Now this is blue.',
 )
@@ -60,7 +58,11 @@ _Note: This will lose TypeScript support, but is great for adding to your browse
 
 # How it Works
 
-Chroma allows you to chain easy-to-read styles (in any order) before adding a log/warn/error call to render.  Chroma takes these parts (including ones passed as arguments), assembling them into the final console statement, complete with injected CSS.
+Chroma is just a passthrough for `console`, handling the style assembly, shorthand style props, and chaining.  This means you can pass in any number of args, of any type.  However, only non-objects (strings, numbers, etc) will be colored.
+
+If used with `log/warn/error`, it will assemble and print the statement, just like `console.log/warn/error`.  If you *don't* include `log/warn/error`, it will output a style token instead.
+
+With that in mind:
 
 ### 1. Use `chroma` instead of `console` to print something
 ```ts
