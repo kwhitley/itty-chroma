@@ -1,6 +1,6 @@
 {
   "name": "itty-chroma",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "type": "module",
   "description": "Powerful styling for the browser console in under 500 bytes.",
   "main": "./chroma.js",
@@ -15,12 +15,11 @@
   },
   "scripts": {
     "dev": "bun test --watch --coverage",
+    "test": "bun test --coverage",
     "lint": "itty lint",
-    "verify": "echo 'verifying module...' && bun run build && bun test",
-    "prerelease": "bun run verify",
     "build": "itty lint && itty build --snippet=chroma --hybrid",
-    "release": "itty publish --tag --push --patch",
-    "release:next": "itty publish --tag --push --type=next"
+    "release": "itty release --prepare --tag --push",
+    "release:next": "itty release --prepare --tag --push --type=next"
   },
   "keywords": [
     "browser",
@@ -41,6 +40,6 @@
   },
   "devDependencies": {
     "@types/bun": "^1.2.17",
-    "itty-packager": "^1.0.11"
+    "itty-packager": "^1.6.7"
   }
 }
