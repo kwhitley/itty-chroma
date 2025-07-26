@@ -16,10 +16,12 @@
 
 ---
 
-Powerful styling for the browser console in under 500 bytes.
+# Easy, flexible styling in the browser console.
+...for the rest of us (and only 500 bytes).
+
 <!--![image](https://github.com/user-attachments/assets/1ac23229-111c-4434-a6ce-379b55d71a71)-->
 
-## Example
+### Example
 ```ts
 import { chroma } from 'itty-chroma'
 
@@ -36,14 +38,6 @@ chroma.log(
 )
 ```
 ![image](https://github.com/user-attachments/assets/7f84014b-97e1-474f-8020-3430efd3e0c6)
-
-## Features
-
-- *Easily* add colors, styles, etc. to browser log messages (it was always possible, just not easy).
-- Simple, infinite-chaining syntax.
-- Full custom CSS support.
-- Fully Typed
-- Tiny.
 
 <br />
 
@@ -68,7 +62,7 @@ _Note: This will lose TypeScript support, but is great for adding to your browse
 
 Chroma allows you to chain easy-to-read styles (in any order) before adding a log/warn/error call to render.  Chroma takes these parts (including ones passed as arguments), assembling them into the final console statement, complete with injected CSS.
 
-### 1. Use `chroma.log` (also supports `warn` and `error`) to enable styling
+### 1. Use `chroma` instead of `console` to print something
 ```ts
 chroma.log('text') // console.log('text')
 chroma.warn('text') // console.warn('text')
@@ -138,12 +132,12 @@ chroma
 ```
 ![image](https://github.com/user-attachments/assets/3a6e5bcf-99ab-4616-9794-579c2e0e6cc8)
 
-### 7. A style will continue until replaced, or cleared using **`chroma.none`**
+### 7. A style will continue until replaced, or cleared using **`chroma.clear`**
 ```ts
 chroma.log(
   chroma.red('this will be red'),
   '...but so will this',
-  chroma.none,
+  chroma.clear,
   'back to unformatted text'
 )
 ```
@@ -192,8 +186,7 @@ warning('But this is a more serious warning text...')
 | **.border(value)** | sets border style | `chroma.border('double 5px red')` |
 | **.padding(value)** | sets padding | `chroma.padding('2px 5px')` |
 | **.style(value)** | sets custom CSS, allowing any valid sequence | `chroma.style('text-transform:uppercase;text-shadow:0 0 0.5rem rgba(255,0,100,0.5)')` |
-| **.none**<sup>1</sup> | clears styling for subsequent arguments | `chroma.red('red text', chroma.none, 'plain text')` |
+| **.none**<sup>1</sup> | clears styling for subsequent arguments | `chroma.red('red text', chroma.clear, 'plain text')` |
 
-<sup>1</sup> <small>Any invalid CSS color name can be used in place of **chroma.none**, as this utimately turns into `"color:none;"`. Alternatively, you could use **chroma.clear**, **chroma.noStyle**, or anything else.</small>
 
 
