@@ -39,11 +39,14 @@ let createProxy = (
         isPadded: any
 
       for (let a of args) {
-        a?.zq && (a = a())
+        if (a?.zq) a = a()
         if (a?.[0]?.startsWith?.('%c')) {
           isPadded = a[1].match(/pad|dec/)
-          wasPadded && (base = base.slice(0, -1))
-          wasPadded && !isPadded && (base += '%c ', out.push(''))
+          if (wasPadded) base = base.slice(0, -1)
+          if (wasPadded && !isPadded) {
+            base += '%c '
+            out.push('')
+          }
           base += a[0]
           out.push(...a.slice(1))
           wasPadded = isPadded
