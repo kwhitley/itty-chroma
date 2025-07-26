@@ -17,4 +17,3 @@ jobs:
         run: bun install
       - name: Verify
         run: bun run verify
-EOF < /dev/null

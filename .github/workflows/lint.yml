@@ -17,4 +17,3 @@ jobs:
         run: bun install
       - name: lint
         run: bun run lint
-EOF < /dev/null
