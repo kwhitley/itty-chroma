@@ -1,6 +1,6 @@
 {
   "name": "itty-chroma",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "type": "module",
   "description": "Powerful styling for the browser console in under 500 bytes.",
   "main": "./chroma.js",
